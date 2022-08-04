@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'linux' }
+  agent { label 'Slave_QA2' }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -7,10 +7,17 @@ pipeline {
     CI = true
     ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
   }
+  
+  tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
+  
   stages {
     stage('Build') {
       steps {
-        sh './mvnw clean install'
+         bat 'mvn clean install'
+   
       }
     }
     stage('Upload to Artifactory') {
@@ -21,7 +28,7 @@ pipeline {
         }
       }
       steps {
-        sh 'jfrog rt upload --url http://192.168.1.230:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/demo-0.0.1-SNAPSHOT.jar java-web-app/'
+        bat 'jfrog rt upload --url https://pruebaitera.jfrog.io/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/demo-0.0.1-SNAPSHOT.jar java-web-app/'
       }
     }
   }
