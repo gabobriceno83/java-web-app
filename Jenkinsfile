@@ -9,11 +9,11 @@ pipeline {
     ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
   }
   
-  //tools {
+  tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        //maven "M3"
+        maven "MAVEN_HOME"
        // jdk 'jdk8.221'
-   // }
+    }
   
   stages {
     stage('Build') {
