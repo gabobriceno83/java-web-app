@@ -1,6 +1,6 @@
 pipeline {
-  //agent { label 'Slave_QA2' }
-  agent any
+  agent { label'Slave_QA2' }
+  //agent any
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -12,7 +12,7 @@ pipeline {
   tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
-        jdk 'jdk8.221'
+       // jdk 'jdk8.221'
     }
   
   stages {
